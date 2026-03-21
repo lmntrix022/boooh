@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+Allow: /blog/
+Allow: /contact
+Allow: /map
+Allow: /c/
+
+# Disallow protected routes
+Disallow: /admin/
+Disallow: /dashboard
+Disallow: /auth
+Disallow: /cards/
+Disallow: /profile
+Disallow: /settings
+Disallow: /stock
+Disallow: /facture
+Disallow: /orders
+Disallow: /appointments
+Disallow: /contacts
+
+# Disallow non-HTML files (but allow sitemap.xml)
+Disallow: /*.json$
+Disallow: /*.xml$
+Allow: /sitemap.xml
+Disallow: /*?*sort=
+Disallow: /*?*page=
+
+# Crawl delay (1 second)
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://www.booh.ga/sitemap.xml

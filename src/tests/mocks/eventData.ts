@@ -1,0 +1,122 @@
+/**
+ * Mock data for event testing
+ */
+
+import type { Event, EventFormData, EventTicket, TicketPurchaseData } from '@/types/events';
+
+export const mockEvent: Event = {
+  id: 'event-123',
+  user_id: 'user-123',
+  card_id: 'card-123',
+  title: 'Test Event',
+  description: 'A test event for unit testing',
+  slug: 'test-event',
+  event_type: 'physical',
+  status: 'published',
+  category: 'conference',
+  start_date: '2025-01-25T10:00:00Z',
+  end_date: '2025-01-25T18:00:00Z',
+  timezone: 'UTC',
+  location_name: 'Test Venue',
+  location_address: '123 Test Street, Test City',
+  latitude: 48.8566,
+  longitude: 2.3522,
+  max_capacity: 100,
+  current_attendees: 25,
+  allow_waitlist: true,
+  cover_image_url: 'https://example.com/cover.jpg',
+  promo_video_url: 'https://example.com/video.mp4',
+  images_urls: ['https://example.com/image1.jpg'],
+  is_free: false,
+  tickets_config: [
+    {
+      id: 'ticket-1',
+      name: 'Early Bird',
+      description: 'Early bird discount',
+      price: 50,
+      currency: 'EUR',
+      quantity: 50,
+      soldCount: 25,
+      color: '#10b981',
+      features: ['VIP access', 'Free drink'],
+      salesStartDate: '2025-01-01T00:00:00Z',
+      salesEndDate: '2025-01-20T00:00:00Z',
+    },
+  ],
+  is_public: true,
+  is_featured: false,
+  tags: ['tech', 'conference'],
+  metadata: {},
+  created_at: '2025-01-01T00:00:00Z',
+  updated_at: '2025-01-01T00:00:00Z',
+  published_at: '2025-01-01T00:00:00Z',
+};
+
+export const mockEventFormData: EventFormData = {
+  title: 'New Test Event',
+  description: 'A new test event',
+  event_type: 'online',
+  category: 'workshop',
+  start_date: new Date('2025-02-01T10:00:00Z'),
+  end_date: new Date('2025-02-01T12:00:00Z'),
+  timezone: 'UTC',
+  location_name: 'Online',
+  location_address: 'Virtual Event',
+  latitude: null,
+  longitude: null,
+  max_capacity: 50,
+  allow_waitlist: false,
+  cover_image_url: 'https://example.com/new-cover.jpg',
+  promo_video_url: null,
+  images_urls: [],
+  is_free: true,
+  tickets_config: [],
+  is_public: true,
+  tags: ['online', 'workshop'],
+  metadata: { test: true },
+};
+
+export const mockTicket: EventTicket = {
+  id: 'ticket-123',
+  event_id: 'event-123',
+  user_id: 'user-456',
+  ticket_type: 'Early Bird',
+  ticket_number: 'BOOH-123456789-ABCDEF',
+  qr_code: 'mock-qr-code-data',
+  attendee_name: 'John Doe',
+  attendee_email: 'john@example.com',
+  attendee_phone: '+33123456789',
+  price: 50,
+  currency: 'EUR',
+  payment_status: 'completed',
+  payment_id: 'payment-123',
+  payment_method: 'mobile_money',
+  is_validated: false,
+  validated_at: null,
+  validated_by: null,
+  status: 'active',
+  metadata: {},
+  created_at: '2025-01-20T10:00:00Z',
+  updated_at: '2025-01-20T10:00:00Z',
+};
+
+export const mockTicketPurchaseData: TicketPurchaseData = {
+  event_id: 'event-123',
+  ticket_type: 'Early Bird',
+  attendee_name: 'Jane Smith',
+  attendee_email: 'jane@example.com',
+  attendee_phone: '+33987654321',
+  quantity: 1,
+};
+
+export const mockEvents: Event[] = [
+  mockEvent,
+  {
+    ...mockEvent,
+    id: 'event-456',
+    title: 'Another Test Event',
+    slug: 'another-test-event',
+    start_date: '2025-02-01T10:00:00Z',
+    end_date: '2025-02-01T18:00:00Z',
+  },
+];

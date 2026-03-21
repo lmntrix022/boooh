@@ -1,0 +1,218 @@
+{
+  "awwardsLanding": {
+    "navigation": {
+      "product": "Produit",
+      "manifesto": "Manifesto",
+      "pricing": "Tarifs",
+      "try": "Essayer"
+    },
+    "hero": {
+      "words": ["Arrêtez de perdre", "des clients."],
+      "subtitle": "Booh, le business OS définitif pour les",
+      "entrepreneurs": "entrepreneurs modernes",
+      "cta": "S'inscrire"
+    },
+    "bentoGrid": {
+      "title": "La friction est l'ennemi. Nous l'avons éliminée.",
+      "agenda": {
+        "title": "Agenda Neural",
+        "desc": "L'IA réorganise votre journée.",
+        "time1": "09:00",
+        "event1": "Réunion Stratégique",
+        "time2": "11:30",
+        "event2": "Déjeuner Client"
+      },
+      "stock": {
+        "title": "Stock Vivant",
+        "desc": "Ne vendez jamais à vide.",
+        "product": "Tissu Wax",
+        "status": "Rupture"
+      },
+      "facturation": {
+        "title": "Facturation",
+        "desc": "Créez, envoyez, encaissez. En 3 clics."
+      },
+      "crm": {
+        "title": "CRM Connect",
+        "desc": "Vos clients dans votre poche, partout.",
+        "users": ["U1", "U2", "U3"]
+      }
+    },
+    "scrollytelling": {
+      "features": [
+        {
+          "title": "Agenda",
+          "desc": "Planification neuronale.",
+          "pain": "Rendez-vous qui se chevauchent, reports, oublis, confirmations manuelles…",
+          "painSubtitle": "Un calendrier impossible à dompter.",
+          "problem": "Vous n'avez plus de visibilité. Vous subissez votre planning.",
+          "solution": "Booh synchronise, organise et confirme vos rendez-vous automatiquement.",
+          "result": "Votre planning devient fluide. Prévisible. Sain.",
+          "cta": "Organiser mes rendez-vous"
+        },
+        {
+          "title": "Facturation",
+          "desc": "Recouvrement accéléré.",
+          "pain": "Factures oubliées, relances manuelles, trésorerie incertaine…",
+          "painSubtitle": "Vous perdez de l'argent chaque mois.",
+          "problem": "Le temps passé à relancer pourrait servir à vendre.",
+          "solution": "Booh génère, envoie et relance vos factures automatiquement.",
+          "result": "Vous êtes payé plus vite. Votre trésorerie respire.",
+          "cta": "Automatiser ma facturation"
+        },
+        {
+          "title": "Stock",
+          "desc": "Inventaire temps réel.",
+          "pain": "Ruptures imprévisibles, comptages manuels, surstockage coûteux…",
+          "painSubtitle": "Vous ne savez jamais où vous en êtes.",
+          "problem": "Chaque rupture vous coûte un client. Chaque surplus vous coûte de l'argent.",
+          "solution": "Booh suit votre stock en temps réel et anticipe les besoins.",
+          "result": "Zéro rupture. Zéro surplus. Stock optimal.",
+          "cta": "Optimiser mon inventaire"
+        },
+        {
+          "title": "CRM",
+          "desc": "Contacts digitalisés.",
+          "pain": "Cartes égarées, contacts éparpillés, historique introuvable…",
+          "painSubtitle": "Votre réseau dort dans vos poches.",
+          "problem": "Vous oubliez de relancer. Vous perdez des opportunités.",
+          "solution": "Booh numérise, centralise et active votre réseau automatiquement.",
+          "result": "Chaque contact devient une opportunité tracée.",
+          "cta": "Activer mon réseau"
+        },
+        {
+          "title": "Identité",
+          "desc": "Cartes digitales.",
+          "pain": "Impression coûteuse, cartes périmées, partage laborieux…",
+          "painSubtitle": "Votre image souffre d'un support obsolète.",
+          "problem": "Vos cartes papier finissent à la poubelle. Vos infos ne sont jamais à jour.",
+          "solution": "Booh crée votre carte digitale interactive et toujours actualisée.",
+          "result": "Vous partagez votre identité en un tap. Mémorable.",
+          "cta": "Créer ma carte digitale"
+        },
+        {
+          "title": "Commerce",
+          "desc": "Boutique auto.",
+          "pain": "Commandes manquées, gestion dispersée, clients impatients…",
+          "painSubtitle": "Vous perdez des ventes chaque jour.",
+          "problem": "Pas de boutique en ligne = pas de ventes automatiques.",
+          "solution": "Booh crée votre boutique et gère commandes et paiements 24/7.",
+          "result": "Vous vendez pendant que vous dormez.",
+          "cta": "Lancer ma boutique"
+        },
+        {
+          "title": "Portfolio",
+          "desc": "Showroom immersif.",
+          "pain": "Photos désorganisées, présentation amateur, impact limité…",
+          "painSubtitle": "Votre talent mérite mieux qu'un album photo.",
+          "problem": "Vos prospects ne voient pas la valeur de votre travail.",
+          "solution": "Booh transforme vos réalisations en showroom immersif et convaincant.",
+          "result": "Vos projets se vendent tout seuls.",
+          "cta": "Créer mon portfolio"
+        },
+        {
+          "title": "Analytics",
+          "desc": "Intelligence d'affaires.",
+          "pain": "Décisions à l'aveugle, KPIs introuvables, croissance incertaine…",
+          "painSubtitle": "Vous pilotez sans instruments.",
+          "problem": "Vous ne savez pas ce qui marche ni où investir.",
+          "solution": "Booh analyse votre activité et vous guide vers la croissance.",
+          "result": "Chaque décision devient data-driven. Précise.",
+          "cta": "Voir mes insights"
+        },
+        {
+          "title": "Map Géolocalisée",
+          "desc": "Découvrez les business, produits et services près de vous.",
+          "pain": "Difficile de trouver les business et services près de vous. Recherche fastidieuse, informations dispersées…",
+          "painSubtitle": "Vous perdez du temps à chercher ce dont vous avez besoin.",
+          "problem": "Comment découvrir rapidement les produits et services disponibles autour de vous ?",
+          "solution": "Booh géolocalise automatiquement tous les business, produits et services à proximité. Découvrez, comparez, achetez en un clic.",
+          "result": "Trouvez instantanément ce que vous cherchez. À portée de main.",
+          "cta": "Découvrir près de moi"
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "Ils nous font confiance",
+      "subtitle": "Témoignages",
+      "items": [
+        {
+          "name": "Marie K.",
+          "role": "Fondatrice",
+          "text": "Booh n'est pas un outil, c'est une extension de mon cerveau."
+        },
+        {
+          "name": "Karim D.",
+          "role": "Tech Lead",
+          "text": "Interface pure, niveau détail inégalé."
+        },
+        {
+          "name": "Aïcha B.",
+          "role": "Traiteur",
+          "text": "Enfin une app business qui respecte l'utilisateur."
+        },
+        {
+          "name": "Jean-Marc",
+          "role": "Consultant",
+          "text": "Revenus +30% juste en organisant mieux mes relances."
+        }
+      ]
+    },
+    "pricing": {
+      "badge": "Tarification",
+      "title": "Transparente & Simple",
+      "description": "Commencez petit, grandissez vite.",
+      "recommended": "Recommandé",
+      "startFree": "Commencer gratuitement",
+      "choosePlan": "Choisir",
+      "features": {
+        "unlimitedCards": "Cartes illimitées",
+        "cards": "carte(s)",
+        "unlimitedProducts": "Produits illimités",
+        "products": "produits",
+        "advancedInvoicing": "Facturation avancée",
+        "invoicing": "Facturation",
+        "advancedStock": "Stock avancé",
+        "stockManagement": "Gestion de stock",
+        "appointments": "Rendez-vous",
+        "crm": "CRM",
+        "unlimitedPortfolio": "Portfolio illimité",
+        "projects": "projets",
+        "team": "Équipe",
+        "members": "membres"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Questions Fréquentes",
+      "items": [
+        {
+          "q": "Est-ce vraiment gratuit au début ?",
+          "a": "Oui, 30 jours complets sans carte bancaire."
+        },
+        {
+          "q": "Mes données sont-elles sécurisées ?",
+          "a": "Chiffrement AES-256, serveurs sécurisés, RGPD."
+        },
+        {
+          "q": "Puis-je l'utiliser hors connexion ?",
+          "a": "Oui, synchronisation automatique au retour du réseau."
+        },
+        {
+          "q": "Comment fonctionne le support ?",
+          "a": "Chat en direct 7j/7 depuis l'app."
+        }
+      ]
+    },
+    "calculator": {
+      "title": "Calculez votre gain de temps",
+      "subtitle": "Découvrez combien d'heures vous économiserez chaque semaine",
+      "hoursPerWeek": "Heures économisées / semaine",
+      "hours": "h",
+      "annualGain": "Gain annuel (heures)",
+      "estimatedSavings": "Économie estimée (FCFA)",
+      "note": "* Basé sur 52 semaines actives et un taux horaire estimé à 5.000 FCFA.",
+      "cta": "Démarrer l'essai gratuit"
+    }
+  }
+}

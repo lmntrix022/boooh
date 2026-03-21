@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Produits Numériques</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .result {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .success { border-color: #28a745; background: #d4edda; }
+        .error { border-color: #dc3545; background: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test des Produits Numériques</h1>
+    
+    <div class="test-section">
+        <h2>1. Test de la Base de Données</h2>
+        <button class="test-button" onclick="testDatabase()">Vérifier les Produits</button>
+        <div id="db-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Test de la Requête Optimisée</h2>
+        <button class="test-button" onclick="testOptimizedQuery()">Tester la Requête</button>
+        <div id="query-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Test de l'Affichage</h2>
+        <button class="test-button" onclick="testDisplay()">Tester l'Affichage</button>
+        <div id="display-result" class="result"></div>
+    </div>
+
+    <script>
+        // Fonction pour afficher les résultats
+        function showResult(elementId, content, isSuccess = true) {
+            const element = document.getElementById(elementId);
+            element.textContent = content;
+            element.className = `result ${isSuccess ? 'success' : 'error'}`;
+        }
+
+        // Test 1: Vérifier la base de données
+        async function testDatabase() {
+            try {
+                showResult('db-result', '🔄 Vérification de la base de données...');
+                
+                // Récupérer l'ID de la carte depuis l'URL
+                const pathParts = window.location.pathname.split('/');
+                const cardId = pathParts[pathParts.length - 1];
+                
+                const { data, error } = await supabase
+                    .from('digital_products')
+                    .select('*')
+                    .eq('card_id', cardId)
+                    .order('created_at', { ascending: false });
+                    
+                if (error) {
+                    showResult('db-result', `❌ Erreur: ${error.message}`, false);
+                    return;
+                }
+                
+                const result = `✅ Produits trouvés: ${data.length}\n\n` +
+                    data.map(product => 
+                        `- ${product.title} (${product.type})\n  Statut: ${product.status}\n  Prix: ${product.is_free ? 'Gratuit' : product.price + ' ' + product.currency}\n  Créé: ${new Date(product.created_at).toLocaleString()}`
+                    ).join('\n\n');
+                
+                showResult('db-result', result);
+                
+            } catch (error) {
+                showResult('db-result', `❌ Erreur: ${error.message}`, false);
+            }
+        }
+
+        // Test 2: Tester la requête optimisée
+        async function testOptimizedQuery() {
+            try {
+                showResult('query-result', '🔄 Test de la requête optimisée...');
+                
+                const pathParts = window.location.pathname.split('/');
+                const cardId = pathParts[pathParts.length - 1];
+                
+                const { data, error } = await supabase
+                    .from('business_cards')
+                    .select(`
+                        *,
+                        social_links (*),
+                        products (*),
+                        digital_products (*),
+                        media_content (*)
+                    `)
+                    .eq('id', cardId)
+                    .single();
+                    
+                if (error) {
+                    showResult('query-result', `❌ Erreur: ${error.message}`, false);
+                    return;
+                }
+                
+                const digitalProducts = data.digital_products || [];
+                const publishedProducts = digitalProducts.filter(p => p.status === 'published');
+                
+                const result = `✅ Carte trouvée: ${data.name}\n` +
+                    `🔍 Produits numériques: ${digitalProducts.length}\n` +
+                    `🔍 Produits publiés: ${publishedProducts.length}\n\n` +
+                    `Détails des produits:\n` +
+                    publishedProducts.map(product => 
+                        `- ${product.title} (${product.type})\n  Statut: ${product.status}\n  Prix: ${product.is_free ? 'Gratuit' : product.price + ' ' + product.currency}`
+                    ).join('\n\n');
+                
+                showResult('query-result', result);
+                
+            } catch (error) {
+                showResult('query-result', `❌ Erreur: ${error.message}`, false);
+            }
+        }
+
+        // Test 3: Tester l'affichage
+        async function testDisplay() {
+            try {
+                showResult('display-result', '🔄 Test de l\'affichage...');
+                
+                // Vérifier si le composant BusinessCard reçoit les données
+                const businessCardElement = document.querySelector('[data-testid="business-card"]');
+                if (!businessCardElement) {
+                    showResult('display-result', '❌ Composant BusinessCard non trouvé', false);
+                    return;
+                }
+                
+                // Vérifier les logs dans la console
+                const logs = [];
+                const originalLog = console.log;
+                console.log = function(...args) {
+                    if (args[0] && args[0].includes('🔍')) {
+                        logs.push(args.join(' '));
+                    }
+                    originalLog.apply(console, args);
+                };
+                
+                // Attendre un peu pour les logs
+                setTimeout(() => {
+                    console.log = originalLog;
+                    
+                    const result = `✅ Composant BusinessCard trouvé\n\n` +
+                        `Logs de débogage:\n` +
+                        logs.join('\n');
+                    
+                    showResult('display-result', result);
+                }, 1000);
+                
+            } catch (error) {
+                showResult('display-result', `❌ Erreur: ${error.message}`, false);
+            }
+        }
+    </script>
+</body>
+</html>

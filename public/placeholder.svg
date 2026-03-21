@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" fill="none" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#EAEAEA" rx="3"/>
+  <g opacity="0.5">
+    <circle cx="600" cy="600" r="136" fill="#FAFAFA" stroke="#C9C9C9" stroke-width="2"/>
+    <circle cx="600" cy="600" r="56" fill="#FFFFFF" stroke="#C9C9C9" stroke-width="2"/>
+    <line x1="404.846" y1="598.671" x2="796.572" y2="598.671" stroke="#C9C9C9" stroke-width="2"/>
+    <line x1="599.5" y1="404.017" x2="599.5" y2="795.742" stroke="#C9C9C9" stroke-width="2"/>
+    <line x1="404.276" y1="405.157" x2="795.717" y2="796.597" stroke="#C9C9C9" stroke-width="2"/>
+    <line x1="795.717" y1="405.157" x2="404.276" y2="796.597" stroke="#C9C9C9" stroke-width="2"/>
+  </g>
+  <g transform="translate(581.364, 580.535)">
+    <rect width="38.689" height="38.689" fill="none"/>
+    <path fill="#666" d="M35.062 6.045H3.628v16.176l3.553-3.554.531-.531h9.068l.074-.074 8.463-8.463h2.565l7.18 7.181V6.045zM19.347 20.699l3.698 3.699 1.283 1.282-2.565 2.565-1.283-1.282-3.698-3.699 2.565-2.565z"/>
+  </g>
+</svg>

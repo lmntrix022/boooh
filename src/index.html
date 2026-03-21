@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Bööh – Une seule URL. Tout votre business. Carte digitale, CRM IA, e-commerce, facturation, gestion de stock, DRM et protection de fichiers." />
+    <meta name="theme-color" content="#9333ea" />
+    
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="%VITE_GOOGLE_SITE_VERIFICATION%" />
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-NDDLMHZL');</script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://booh.ga/" />
+    <meta property="og:title" content="Bööh – Une seule URL. Tout votre business." />
+    <meta property="og:description" content="Créez votre carte digitale, gérez vos contacts, vos ventes, vos stocks et vos fichiers protégés avec DRM. Tout votre business, au même endroit." />
+    <meta property="og:image" content="https://booh.ga/og-image-home.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://booh.ga/" />
+    <meta property="twitter:title" content="Bööh – Une seule URL. Tout votre business." />
+    <meta property="twitter:description" content="Créez votre carte digitale, gérez vos contacts, vos ventes, vos stocks et vos fichiers protégés avec DRM. Tout votre business, au même endroit." />
+    <meta property="twitter:image" content="https://booh.ga/og-image-home.png" />
+    
+    <!-- Préchargement des polices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" as="style" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Préchargement des ressources critiques -->
+    <link rel="preload" href="/logo.svg" as="image" type="image/svg+xml" />
+    
+    <!-- Favicon et icônes d'application -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <title>Bööh – Une seule URL. Tout votre business.</title>
+    
+    <!-- Styles de base et critique -->
+    <style>
+      /* Style critique pour éviter le FOUC (flash of unstyled content) */
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      }
+      
+      #root {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      /* Préchargement de l'application */
+      .app-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #f9fafb;
+        z-index: 9999;
+      }
+      
+      .app-loading-logo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 24px;
+      }
+      
+      .app-loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(147, 51, 234, 0.2);
+        border-radius: 50%;
+        border-top-color: #9333ea;
+        animation: spin 1s ease-in-out infinite;
+      }
+      
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      
+      @media (prefers-reduced-motion: reduce) {
+        .app-loading-spinner {
+          animation: none;
+        }
+      }
+    </style>
+    
+    <!-- Script pour détecter la navigation au clavier pour l'accessibilité -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.addEventListener('mousedown', function() {
+          document.body.classList.add('using-mouse');
+        });
+        document.body.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab') {
+            document.body.classList.remove('using-mouse');
+          }
+        });
+      });
+      
+      // Détecter les appareils à faibles performances
+      const isLowPerformanceDevice = () => {
+        const navigatorInfo = navigator;
+        if (navigatorInfo.deviceMemory && navigatorInfo.deviceMemory < 4) return true;
+        if (navigatorInfo.hardwareConcurrency && navigatorInfo.hardwareConcurrency < 4) return true;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
+        return false;
+      };
+      
+      // Appliquer des optimisations pour les appareils à faibles performances
+      if (isLowPerformanceDevice()) {
+        document.documentElement.classList.add('optimize-animations');
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NDDLMHZL"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <div id="root">
+      <!-- Préchargement de l'application -->
+      <div class="app-loading">
+        <div class="app-loading-spinner"></div>
+      </div>
+    </div>
+    
+    <!-- Conteneurs pour les modales et les notifications -->
+    <div id="modal-root"></div>
+    <div id="toast-root"></div>
+    
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

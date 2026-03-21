@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    // ==========================================
+    // CONFIGURATION TYPESCRIPT STRICTE PROGRESSIVE
+    // ==========================================
+    // Options strictes activées:
+    // ✅ strictNullChecks, strictFunctionTypes, strictBindCallApply
+    // ✅ noImplicitAny (activé après nettoyage)
+    //
+    // État actuel: 457 erreurs (en baisse)
+    // Prochaine étape: strict: true (< 100 erreurs)
+    // ==========================================
+
+    // ✅ STRICT MODE DÉSACTIVÉ (on active manuellement ce qu'on veut)
+    "strict": false,
+
+    // ✅ GARDER ACTIVÉ - Vraie valeur de sécurité
+    "strictNullChecks": true,           // Empêche vraiment des bugs null/undefined
+    "strictFunctionTypes": true,        // Sécurité des types de fonctions
+    "strictBindCallApply": true,        // Sécurité bind/call/apply
+
+    // ✅ ACTIVÉ - Détection des types any implicites
+    "noImplicitAny": true,              // Génère +10 erreurs (nettoyé)
+    "strictPropertyInitialization": false, // Trop strict pour React useState
+    "noImplicitThis": false,            // Rarement un problème en React moderne
+    "alwaysStrict": false,              // Pas nécessaire avec modules ES
+
+    // ❌ DÉSACTIVÉ - Code mort/inutilisé (peut être nettoyé progressivement)
+    "noUnusedLocals": false,            // 580 warnings - utile mais pas urgent
+    "noUnusedParameters": false,        // Idem
+
+    // ✅ GARDER ACTIVÉ - Prévention d'erreurs logiques
+    "noFallthroughCasesInSwitch": true, // Switch statements sécurisés
+    "noImplicitReturns": false,         // Désactivé car génère trop de faux positifs
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ]
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

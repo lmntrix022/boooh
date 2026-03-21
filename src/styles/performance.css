@@ -1,0 +1,240 @@
+/* Optimisations CSS pour les performances */
+
+/* Réduire les animations sur les connexions lentes */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimisations pour les connexions lentes */
+@media (max-width: 768px) {
+  .performance-optimized {
+    will-change: auto;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Optimisations de rendu */
+.optimized-render {
+  will-change: auto;
+  contain: layout style paint;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Optimisations pour les images */
+.image-optimized {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Optimisations pour les listes */
+.list-optimized {
+  contain: layout style;
+  will-change: auto;
+}
+
+/* Optimisations pour les animations */
+.animation-optimized {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Optimisations pour les scrolls */
+.scroll-optimized {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Optimisations pour les polices */
+.font-optimized {
+  font-display: swap;
+  font-synthesis: none;
+}
+
+/* Optimisations pour les gradients */
+.gradient-optimized {
+  background-attachment: scroll;
+}
+
+/* Optimisations pour les ombres */
+.shadow-optimized {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Optimisations pour les bordures */
+.border-optimized {
+  border-image: none;
+}
+
+/* Optimisations pour les transitions */
+.transition-optimized {
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Optimisations pour les focus */
+.focus-optimized:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+/* Optimisations pour les hover */
+.hover-optimized:hover {
+  transform: translateY(-1px);
+}
+
+/* Optimisations pour les états de chargement */
+.loading-optimized {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Optimisations pour les connexions très lentes */
+@media (max-width: 480px) {
+  .ultra-optimized {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* Optimisations pour les écrans haute densité */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .retina-optimized {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Optimisations pour les écrans tactiles */
+@media (hover: none) and (pointer: coarse) {
+  .touch-optimized {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Optimisations pour les écrans de bureau */
+@media (hover: hover) and (pointer: fine) {
+  .desktop-optimized {
+    cursor: pointer;
+  }
+}
+
+/* Optimisations pour les connexions 2G */
+@media (max-width: 320px) {
+  .slow-connection-optimized {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+/* Optimisations pour les connexions 3G */
+@media (min-width: 321px) and (max-width: 768px) {
+  .medium-connection-optimized {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+/* Optimisations pour les connexions rapides */
+@media (min-width: 769px) {
+  .fast-connection-optimized {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+}
+
+/* Optimisations pour les modes sombres */
+@media (prefers-color-scheme: dark) {
+  .dark-optimized {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+}
+
+/* Optimisations pour les modes clairs */
+@media (prefers-color-scheme: light) {
+  .light-optimized {
+    background-color: #ffffff;
+    color: #000000;
+  }
+}
+
+/* Optimisations pour les préférences de contraste élevé */
+@media (prefers-contrast: high) {
+  .high-contrast-optimized {
+    border: 2px solid currentColor;
+    background-color: transparent;
+  }
+}
+
+/* Optimisations pour les préférences de contraste réduit */
+@media (prefers-contrast: low) {
+  .low-contrast-optimized {
+    opacity: 0.8;
+  }
+}
+
+/* Optimisations pour les préférences de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+  .reduced-motion-optimized {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Optimisations pour les préférences de mouvement normal */
+@media (prefers-reduced-motion: no-preference) {
+  .normal-motion-optimized {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optimisations pour les préférences de données réduites */
+@media (prefers-reduced-data: reduce) {
+  .reduced-data-optimized {
+    background-image: none !important;
+    background-color: #f0f0f0 !important;
+  }
+}
+
+/* Optimisations pour les préférences de données normales */
+@media (prefers-reduced-data: no-preference) {
+  .normal-data-optimized {
+    background-image: url('/pattern.svg');
+  }
+} 

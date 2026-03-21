@@ -1,0 +1,218 @@
+{
+  "awwardsLanding": {
+    "navigation": {
+      "product": "Product",
+      "manifesto": "Manifesto",
+      "pricing": "Pricing",
+      "try": "Try"
+    },
+    "hero": {
+      "words": ["Stop losing", "customers."],
+      "subtitle": "Booh, the definitive business OS for",
+      "entrepreneurs": "modern entrepreneurs",
+      "cta": "Sign up"
+    },
+    "bentoGrid": {
+      "title": "Friction is the enemy. We've eliminated it.",
+      "agenda": {
+        "title": "Neural Agenda",
+        "desc": "AI reorganizes your day.",
+        "time1": "09:00",
+        "event1": "Strategic Meeting",
+        "time2": "11:30",
+        "event2": "Client Lunch"
+      },
+      "stock": {
+        "title": "Live Stock",
+        "desc": "Never sell out.",
+        "product": "Wax Fabric",
+        "status": "Out of Stock"
+      },
+      "facturation": {
+        "title": "Invoicing",
+        "desc": "Create, send, collect. In 3 clicks."
+      },
+      "crm": {
+        "title": "CRM Connect",
+        "desc": "Your clients in your pocket, everywhere.",
+        "users": ["U1", "U2", "U3"]
+      }
+    },
+    "scrollytelling": {
+      "features": [
+        {
+          "title": "Agenda",
+          "desc": "Neural planning.",
+          "pain": "Overlapping appointments, reschedules, forgotten confirmations…",
+          "painSubtitle": "An impossible calendar to tame.",
+          "problem": "You have no visibility. You're at the mercy of your schedule.",
+          "solution": "Booh synchronizes, organizes and confirms your appointments automatically.",
+          "result": "Your schedule becomes fluid. Predictable. Healthy.",
+          "cta": "Organize my appointments"
+        },
+        {
+          "title": "Invoicing",
+          "desc": "Accelerated collection.",
+          "pain": "Forgotten invoices, manual follow-ups, uncertain cash flow…",
+          "painSubtitle": "You lose money every month.",
+          "problem": "Time spent following up could be used to sell.",
+          "solution": "Booh generates, sends and follows up on your invoices automatically.",
+          "result": "You get paid faster. Your cash flow breathes.",
+          "cta": "Automate my invoicing"
+        },
+        {
+          "title": "Stock",
+          "desc": "Real-time inventory.",
+          "pain": "Unpredictable shortages, manual counts, costly overstocking…",
+          "painSubtitle": "You never know where you stand.",
+          "problem": "Every shortage costs you a customer. Every surplus costs you money.",
+          "solution": "Booh tracks your stock in real-time and anticipates needs.",
+          "result": "Zero shortages. Zero surplus. Optimal stock.",
+          "cta": "Optimize my inventory"
+        },
+        {
+          "title": "CRM",
+          "desc": "Digitized contacts.",
+          "pain": "Lost cards, scattered contacts, untraceable history…",
+          "painSubtitle": "Your network sleeps in your pockets.",
+          "problem": "You forget to follow up. You lose opportunities.",
+          "solution": "Booh digitizes, centralizes and activates your network automatically.",
+          "result": "Every contact becomes a tracked opportunity.",
+          "cta": "Activate my network"
+        },
+        {
+          "title": "Identity",
+          "desc": "Digital cards.",
+          "pain": "Expensive printing, outdated cards, laborious sharing…",
+          "painSubtitle": "Your image suffers from an obsolete medium.",
+          "problem": "Your paper cards end up in the trash. Your info is never up to date.",
+          "solution": "Booh creates your interactive digital card, always updated.",
+          "result": "You share your identity in one tap. Memorable.",
+          "cta": "Create my digital card"
+        },
+        {
+          "title": "Commerce",
+          "desc": "Auto shop.",
+          "pain": "Missed orders, scattered management, impatient customers…",
+          "painSubtitle": "You lose sales every day.",
+          "problem": "No online store = no automatic sales.",
+          "solution": "Booh creates your store and manages orders and payments 24/7.",
+          "result": "You sell while you sleep.",
+          "cta": "Launch my store"
+        },
+        {
+          "title": "Portfolio",
+          "desc": "Immersive showroom.",
+          "pain": "Disorganized photos, amateur presentation, limited impact…",
+          "painSubtitle": "Your talent deserves better than a photo album.",
+          "problem": "Your prospects don't see the value of your work.",
+          "solution": "Booh transforms your achievements into an immersive and convincing showroom.",
+          "result": "Your projects sell themselves.",
+          "cta": "Create my portfolio"
+        },
+        {
+          "title": "Analytics",
+          "desc": "Business intelligence.",
+          "pain": "Blind decisions, untraceable KPIs, uncertain growth…",
+          "painSubtitle": "You're flying without instruments.",
+          "problem": "You don't know what works or where to invest.",
+          "solution": "Booh analyzes your activity and guides you towards growth.",
+          "result": "Every decision becomes data-driven. Precise.",
+          "cta": "View my insights"
+        },
+        {
+          "title": "Geolocated Map",
+          "desc": "Discover businesses, products and services near you.",
+          "pain": "Hard to find businesses and services near you. Tedious search, scattered information…",
+          "painSubtitle": "You waste time looking for what you need.",
+          "problem": "How to quickly discover products and services available around you?",
+          "solution": "Booh automatically geolocates all businesses, products and services nearby. Discover, compare, buy in one click.",
+          "result": "Instantly find what you're looking for. At your fingertips.",
+          "cta": "Discover near me"
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "They trust us",
+      "subtitle": "Testimonials",
+      "items": [
+        {
+          "name": "Marie K.",
+          "role": "Founder",
+          "text": "Booh isn't a tool, it's an extension of my brain."
+        },
+        {
+          "name": "Karim D.",
+          "role": "Tech Lead",
+          "text": "Pure interface, unmatched detail level."
+        },
+        {
+          "name": "Aïcha B.",
+          "role": "Caterer",
+          "text": "Finally a business app that respects the user."
+        },
+        {
+          "name": "Jean-Marc",
+          "role": "Consultant",
+          "text": "Revenue +30% just by organizing my follow-ups better."
+        }
+      ]
+    },
+    "pricing": {
+      "badge": "Pricing",
+      "title": "Transparent & Simple",
+      "description": "Start small, grow fast.",
+      "recommended": "Recommended",
+      "startFree": "Start for free",
+      "choosePlan": "Choose",
+      "features": {
+        "unlimitedCards": "Unlimited cards",
+        "cards": "card(s)",
+        "unlimitedProducts": "Unlimited products",
+        "products": "products",
+        "advancedInvoicing": "Advanced invoicing",
+        "invoicing": "Invoicing",
+        "advancedStock": "Advanced stock",
+        "stockManagement": "Stock management",
+        "appointments": "Appointments",
+        "crm": "CRM",
+        "unlimitedPortfolio": "Unlimited portfolio",
+        "projects": "projects",
+        "team": "Team",
+        "members": "members"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "q": "Is it really free at the start?",
+          "a": "Yes, 30 full days without a credit card."
+        },
+        {
+          "q": "Is my data secure?",
+          "a": "AES-256 encryption, secure servers, GDPR."
+        },
+        {
+          "q": "Can I use it offline?",
+          "a": "Yes, automatic synchronization when network returns."
+        },
+        {
+          "q": "How does support work?",
+          "a": "Live chat 7/7 from the app."
+        }
+      ]
+    },
+    "calculator": {
+      "title": "Calculate your time savings",
+      "subtitle": "Discover how many hours you'll save each week",
+      "hoursPerWeek": "Hours saved / week",
+      "hours": "h",
+      "annualGain": "Annual gain (hours)",
+      "estimatedSavings": "Estimated savings (FCFA)",
+      "note": "* Based on 52 active weeks and an estimated hourly rate of 5,000 FCFA.",
+      "cta": "Start free trial"
+    }
+  }
+}

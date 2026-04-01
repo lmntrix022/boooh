@@ -432,6 +432,104 @@
       "startFree": "Démarrer l'essai gratuit"
     }
   },
+  "landingObo": {
+    "hero": {
+      "titleLine1": "Arrête de bricoler ton business sur WhatsApp.",
+      "titleLine2": "Commence à régner avec BÖÖH.",
+      "subtitle1": "Ton lien unique pour vendre, encaisser et gérer ton business.",
+      "subtitle2": "Simple. Instantané. Pro.",
+      "subtitle3": "Avec Obo, ton guide pour chaque étape.",
+      "ctaPrimary": "Créer mon lien GRATUITEMENT",
+      "ctaPrimaryHover": "C'est parti 🚀",
+      "ctaSecondary": "Voir BÖÖH en action",
+      "ctaSecondaryHover": "Regarde comment Obo t'aide",
+      "phoneCaption": "Ton lien BÖÖH sur mobile"
+    },
+    "problem": {
+      "badge": "Tu connais ça ?",
+      "items": [
+        { "emoji": "📱", "text": "Tu postes tes produits sur WhatsApp… et tu perds des clients" },
+        { "emoji": "💸", "text": "Les paiements se mélangent, tu ne sais plus qui a payé" },
+        { "emoji": "💬", "text": "Les commandes disparaissent dans les messages" }
+      ],
+      "resultLabel": "Résultat",
+      "result": "Perte d'argent, perte de temps, perte de crédibilité."
+    },
+    "breakPattern": {
+      "before": "Avant BÖÖH : chaos, frustration, perte.",
+      "after": "Après BÖÖH : contrôle, fluidité, rentabilité.",
+      "keyMessage": "Ce n'est pas toi. C'est ton système qui bloque tes ventes."
+    },
+    "solution": {
+      "title": "BÖÖH + Obo : ton business, réinventé.",
+      "bullets": [
+        "Un seul lien pour tout gérer : catalogue, paiement, commandes",
+        "Tout est clair, sécurisé, rapide"
+      ],
+      "tip1": "Catalogue",
+      "tip2": "Paiement instantané",
+      "tip3": "Commandes"
+    },
+    "howItWorks": {
+      "title": "Comment ça marche",
+      "steps": [
+        { "n": "1", "title": "Créer ton lien BÖÖH", "desc": "En 2 minutes" },
+        { "n": "2", "title": "Partager partout", "desc": "WhatsApp, Facebook, Instagram" },
+        { "n": "3", "title": "Encaisser instantanément", "desc": "Mobile Money + suivi automatique" }
+      ]
+    },
+    "benefits": {
+      "title": "Bénéfices premium",
+      "items": [
+        { "icon": "money", "title": "Encaissements instantanés", "desc": "L'argent suit tes ventes, sans confusion." },
+        { "icon": "users", "title": "Plus de clients, moins d'erreurs", "desc": "Un parcours clair du clic à la commande." },
+        { "icon": "clock", "title": "Gain de temps immédiat", "desc": "Moins de messages à relire, plus d'actions." },
+        { "icon": "trophy", "title": "Image professionnelle instantanée", "desc": "Une vitrine digne de ton ambition." }
+      ]
+    },
+    "transformation": {
+      "beforeTitle": "Avant BÖÖH",
+      "beforeList": ["Chaos", "Improvisation", "Pertes"],
+      "afterTitle": "Après BÖÖH",
+      "afterList": ["Tout centralisé", "Ventes claires", "Business pro"]
+    },
+    "testimonials": {
+      "title": "Ils ont transformé leur business",
+      "items": [
+        {
+          "name": "Aline",
+          "role": "Entrepreneure",
+          "quote": "Avant je perdais des commandes tous les jours. Avec mon lien BÖÖH, tout est clair. Je gagne plus."
+        },
+        {
+          "name": "Serge",
+          "role": "Commerçant",
+          "quote": "Mes clients me prennent plus au sérieux maintenant. BÖÖH a transformé mon business."
+        }
+      ]
+    },
+    "objections": {
+      "title": "On te rassure",
+      "items": [
+        { "q": "C'est compliqué ?", "a": "Non — création en quelques minutes, Obo te guide." },
+        { "q": "Mobile Money ?", "a": "Oui — paiement instantané et sécurisé, suivi inclus." },
+        { "q": "Besoin d'un site ?", "a": "Non — ton lien BÖÖH avec Obo suffit pour vendre comme un pro." }
+      ]
+    },
+    "finalOffer": {
+      "giftTitle": "Commence GRATUITEMENT",
+      "giftSteps": ["Crée ton lien", "Teste", "Vends"],
+      "urgency": "Arrête de perdre des ventes. Transforme ton business maintenant.",
+      "cta": "Créer mon lien BÖÖH",
+      "ctaHover": "Je lance maintenant ✨"
+    },
+    "sticky": {
+      "cta": "Créer mon lien"
+    },
+    "mascot": {
+      "placeholder": "Obo arrive bientôt"
+    }
+  },
   "errors": {
     "generic": "Une erreur est survenue",
     "unexpected": "Une erreur inattendue s'est produite",

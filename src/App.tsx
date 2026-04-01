@@ -20,7 +20,9 @@ import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Lazy imports avec préchargement optimisé
-// Landing Awwwards v2 (Hero + scrollytelling)
+// Landing BÖÖH + Obo (remplace la page d'accueil)
+const BoohOboLanding = React.lazy(() => import('./pages/BoohOboLanding'))
+// Ancienne landing (scrollytelling) — conservée sur une route dédiée
 const AwwardsLevelLanding = React.lazy(() => import('./pages/AwwardsLevelLanding'))
 const PureAwwardsLanding = React.lazy(() => import('./pages/PureAwwardsLanding'))
 const Dashboard = React.lazy(() => import('./pages/Dashboard'))
@@ -227,8 +229,9 @@ const App = () => {
               <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <Suspense fallback={<PageLoading />}>
                   <Routes>
-                    {/* Landing Page - Awwwards Level */}
-                    <Route path="/" element={<AwwardsLevelLanding />} />
+                    {/* Landing BÖÖH + Obo */}
+                    <Route path="/" element={<BoohOboLanding />} />
+                    <Route path="/landing-awwwards-v2" element={<AwwardsLevelLanding />} />
                     <Route path="/landing-v1" element={<PureAwwardsLanding />} />
                     <Route path="/features" element={<Features />} />
                     <Route path="/solutions" element={<Solutions />} />
@@ -326,7 +329,7 @@ const App = () => {
                     <Route path="/card/:id/marketplace" element={<Marketplace />} />
                     <Route path="/card/:id/marketplace/product/:productId" element={<ProductDetail />} />
                     <Route path="/card/:id/events" element={<Suspense fallback={<div>Loading...</div>}><EventsListByCard /></Suspense>} />
-                    <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+                    <Route path="/checkout" element={<Checkout />} />
                     <Route path="/my-purchases" element={<ProtectedRoute><MyPurchases /></ProtectedRoute>} />
 
                     {/* DRM Secure Download - Public with token validation */}

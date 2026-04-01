@@ -31,14 +31,15 @@ import PaymentOptions from '@/components/payment/PaymentOptions';
 import { sendNewOrderEmails } from '@/services/orderEmailService';
 import MobileMoneyPayment from '@/components/payment/MobileMoneyPayment';
 import PaymentSuccess from '@/components/payment/PaymentSuccess';
-import { SecureDownloadServiceV2 } from '@/services/secureDownloadServiceV2';
 import { calculatePaymentWithFeesAndTax, type PaymentBreakdown } from '@/services/paymentCalculator';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Checkout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { items, totalAmount, clearCart } = useCart();
   const { toast } = useToast();
+  const { user } = useAuth();
 
   // États pour les frais et la TVA
   const [paymentBreakdown, setPaymentBreakdown] = useState<PaymentBreakdown | null>(null);
@@ -119,6 +120,22 @@ const Checkout: React.FC = () => {
     postalCode: '',
     notes: '',
   });
+
+  useEffect(() => {
+    if (!user?.email) return;
+    setCustomerInfo((prev) => {
+      if (prev.email) return prev;
+      const meta = user.user_metadata as { full_name?: string } | undefined;
+      let firstName = prev.firstName;
+      let lastName = prev.lastName;
+      if (meta?.full_name && !firstName && !lastName) {
+        const parts = String(meta.full_name).trim().split(/\s+/);
+        firstName = parts[0] || '';
+        lastName = parts.slice(1).join(' ');
+      }
+      return { ...prev, email: user.email || '', firstName, lastName };
+    });
+  }, [user]);
 
   // Grouper les articles par vendeur (cardId)
   const itemsByCard = items.reduce((acc, item) => {
@@ -294,36 +311,30 @@ const Checkout: React.FC = () => {
         }
           
         if (item.type === 'digital') {
-          // 🔑 Générer un token DRM sécurisé pour le téléchargement
-          const tokenResult = await SecureDownloadServiceV2.generateSecureToken(
-            orderId,
-            24, // Expire dans 24 heures
-            3   // Maximum 3 téléchargements
+          const paidOk =
+            paymentResult.status === 'paid' || paymentResult.payment_status === 'paid';
+          const paymentStatus = paymentResult.payment_status || (paidOk ? 'paid' : 'pending');
+          const paidAt = paymentResult.paid_at || new Date().toISOString();
+
+          const { data: rpcDigital, error: rpcDigitalErr } = await supabase.rpc(
+            'finalize_digital_inquiry_ecommerce_payment',
+            {
+              p_inquiry_id: orderId,
+              p_client_email: customerInfo.email.trim(),
+              p_payment_method: paymentMethod,
+              p_transaction_id: paymentResult.transaction_id || paymentResult.payment_intent_id || null,
+              p_paid_at: paidAt,
+              p_external_reference: externalReference,
+              p_payment_status: paymentStatus,
+            }
           );
 
-          if (!tokenResult.success) {
-            console.error('Token generation failed:', tokenResult.errorMessage);
-            // Continuer quand même avec la mise à jour
+          if (rpcDigitalErr) throw rpcDigitalErr;
+          const rpcDigitalResult = rpcDigital as { success?: boolean; error?: string };
+          if (!rpcDigitalResult?.success) {
+            throw new Error(rpcDigitalResult?.error || 'Mise à jour commande digitale impossible');
           }
 
-          // Mettre à jour l'inquiry digitale avec les informations de paiement et le token
-          await supabase
-            .from('digital_inquiries')
-            .update({
-              status: paymentResult.status === 'paid' || paymentResult.payment_status === 'paid' ? 'completed' : 'pending',
-              payment_status: paymentResult.payment_status || 'paid',
-              payment_method: paymentMethod,
-              transaction_id: paymentResult.transaction_id || paymentResult.payment_intent_id,
-              paid_at: paymentResult.paid_at || new Date().toISOString(),
-              external_reference: externalReference,
-              ...(tokenResult.success && {
-                download_token: tokenResult.downloadToken,
-                expires_at: tokenResult.expiresAt,
-                max_downloads: tokenResult.maxDownloads,
-              }),
-            })
-            .eq('id', orderId);
-          
           // Envoyer les emails
           const emailResult = await sendNewOrderEmails(orderId, 'digital').catch((emailError) => {
             console.error('Email sending failed for digital product:', emailError);
@@ -346,19 +357,30 @@ const Checkout: React.FC = () => {
             console.warn('Contact creation failed for digital product:', contactError);
           }
         } else {
-          // Mettre à jour l'inquiry physique pour ce produit
-          await supabase
-            .from('product_inquiries')
-            .update({
-              status: paymentResult.status === 'paid' || paymentResult.payment_status === 'paid' ? 'confirmed' : 'pending',
-              payment_status: paymentResult.payment_status || 'paid',
-              payment_method: paymentMethod,
-              transaction_id: paymentResult.transaction_id || paymentResult.payment_intent_id,
-              paid_at: paymentResult.paid_at || new Date().toISOString(),
-              external_reference: externalReference,
-            })
-            .eq('id', orderId);
-          
+          const paidOk =
+            paymentResult.status === 'paid' || paymentResult.payment_status === 'paid';
+          const paymentStatus = paymentResult.payment_status || (paidOk ? 'paid' : 'pending');
+          const paidAt = paymentResult.paid_at || new Date().toISOString();
+
+          const { data: rpcPhys, error: rpcPhysErr } = await supabase.rpc(
+            'finalize_product_inquiry_ecommerce_payment',
+            {
+              p_inquiry_id: orderId,
+              p_client_email: customerInfo.email.trim(),
+              p_payment_method: paymentMethod,
+              p_transaction_id: paymentResult.transaction_id || paymentResult.payment_intent_id || null,
+              p_paid_at: paidAt,
+              p_external_reference: externalReference,
+              p_payment_status: paymentStatus,
+            }
+          );
+
+          if (rpcPhysErr) throw rpcPhysErr;
+          const rpcPhysResult = rpcPhys as { success?: boolean; error?: string };
+          if (!rpcPhysResult?.success) {
+            throw new Error(rpcPhysResult?.error || 'Mise à jour commande physique impossible');
+          }
+
           // Envoyer les emails
           await sendNewOrderEmails(orderId, 'physical').catch(() => {});
           

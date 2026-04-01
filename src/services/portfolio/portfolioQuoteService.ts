@@ -83,7 +83,32 @@ export class PortfolioQuoteService {
      * Créer une demande de devis publique (par un visiteur)
      */
     static async createPublicQuote(userId: string, data: Partial<CreateQuoteData>): Promise<ServiceQuote> {
-        return this.createQuote(userId, data);
+        const cardId = (data as any)?.card_id as string | undefined;
+        if (!cardId) {
+            // Fallback (legacy). This will require authentication due to RLS.
+            return this.createQuote(userId, data);
+        }
+
+        const { data: rpcData, error } = await supabase.rpc('create_public_service_quote' as any, {
+            p_card_id: cardId,
+            p_project_id: (data as any)?.project_id ?? null,
+            p_client_name: data.client_name || '',
+            p_client_email: data.client_email || '',
+            p_client_phone: (data as any)?.client_phone ?? null,
+            p_client_company: (data as any)?.client_company ?? null,
+            p_service_requested: data.service_requested || '',
+            p_project_description: (data as any)?.project_description ?? null,
+            p_budget_range: (data as any)?.budget_range ?? null,
+            p_urgency: (data as any)?.urgency ?? null,
+            p_preferred_start_date: (data as any)?.preferred_start_date ?? null,
+        });
+
+        if (error) throw error;
+        const result = rpcData as any;
+        if (!result?.success || !result?.quote) {
+            throw new Error(result?.error || 'Unable to create quote');
+        }
+        return result.quote as ServiceQuote;
     }
 
     /**

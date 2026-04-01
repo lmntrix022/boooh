@@ -20,9 +20,7 @@ import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Lazy imports avec préchargement optimisé
-// Landing BÖÖH + Obo (remplace la page d'accueil)
-const BoohOboLanding = React.lazy(() => import('./pages/BoohOboLanding'))
-// Ancienne landing (scrollytelling) — conservée sur une route dédiée
+// Landing Awwwards v2 (Hero + scrollytelling)
 const AwwardsLevelLanding = React.lazy(() => import('./pages/AwwardsLevelLanding'))
 const PureAwwardsLanding = React.lazy(() => import('./pages/PureAwwardsLanding'))
 const Dashboard = React.lazy(() => import('./pages/Dashboard'))
@@ -229,9 +227,8 @@ const App = () => {
               <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <Suspense fallback={<PageLoading />}>
                   <Routes>
-                    {/* Landing BÖÖH + Obo */}
-                    <Route path="/" element={<BoohOboLanding />} />
-                    <Route path="/landing-awwwards-v2" element={<AwwardsLevelLanding />} />
+                    {/* Landing Page - Awwwards Level */}
+                    <Route path="/" element={<AwwardsLevelLanding />} />
                     <Route path="/landing-v1" element={<PureAwwardsLanding />} />
                     <Route path="/features" element={<Features />} />
                     <Route path="/solutions" element={<Solutions />} />

@@ -169,7 +169,10 @@ const BusinessCardModern: React.FC<BusinessCardProps> = memo(({
     products,
     digitalProducts,
     mediaContent,
-    description
+    description,
+    events,
+    portfolioSettings,
+    portfolioProjectsCount,
   });
 
 

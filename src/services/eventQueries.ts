@@ -233,15 +233,31 @@ export async function getEventsNearLocation(
  */
 export async function getCardEvents(cardId: string): Promise<Event[]> {
   try {
-    const { data, error } = await supabase
-      .from('events')
-      .select('*')
-      .eq('card_id', cardId)
-      .eq('status', 'published')
-      .order('start_date', { ascending: true });
+    // Support both legacy direct linkage (`card_id`) and new linkage
+    // through metadata.associated_card_ids.
+    const [directLinkResult, metadataLinkResult] = await Promise.all([
+      supabase
+        .from('events')
+        .select('*')
+        .eq('card_id', cardId)
+        .eq('status', 'published')
+        .order('start_date', { ascending: true }),
+      supabase
+        .from('events')
+        .select('*')
+        .contains('metadata', { associated_card_ids: [cardId] })
+        .eq('status', 'published')
+        .order('start_date', { ascending: true }),
+    ]);
 
-    if (error) throw error;
-    return data || [];
+    if (directLinkResult.error) throw directLinkResult.error;
+    if (metadataLinkResult.error) throw metadataLinkResult.error;
+
+    const merged = [...(directLinkResult.data || []), ...(metadataLinkResult.data || [])];
+    const uniqueById = Array.from(new Map(merged.map(event => [event.id, event])).values());
+    uniqueById.sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime());
+
+    return uniqueById;
   } catch (error) {
     console.error('Error fetching card events:', error);
     throw new Error('Failed to fetch card events');

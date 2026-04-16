@@ -5,13 +5,21 @@ interface UseCardContentProps {
   digitalProducts?: Array<any>;
   mediaContent?: Array<any>;
   description?: string;
+  events?: Array<any>;
+  portfolioSettings?: {
+    is_enabled?: boolean;
+  } | null;
+  portfolioProjectsCount?: number;
 }
 
 export const useCardContent = ({
   products = [],
   digitalProducts = [],
   mediaContent = [],
-  description
+  description,
+  events = [],
+  portfolioSettings = null,
+  portfolioProjectsCount = 0,
 }: UseCardContentProps) => {
   const hasPhysicalProducts = products && Array.isArray(products) && products.length > 0;
   const hasDigitalProducts = digitalProducts && Array.isArray(digitalProducts) && digitalProducts.length > 0;
@@ -86,8 +94,10 @@ export const useCardContent = ({
   }, [mediaContent, digitalProducts]);
   
   const hasCombinedMedia = combinedMediaContent && combinedMediaContent.length > 0;
-  const hasBoutiqueContent = hasProducts;
-  const shouldShowSlider = hasBoutiqueContent && (hasPhysicalProducts || hasDigitalProducts);
+  const hasEvents = events && Array.isArray(events) && events.length > 0;
+  const hasPortfolioContent = Boolean(portfolioSettings?.is_enabled) && portfolioProjectsCount > 0;
+  const hasBoutiqueContent = hasProducts || hasEvents || hasPortfolioContent;
+  const shouldShowSlider = hasBoutiqueContent;
   const hasLiensContent = hasCombinedMedia || description || true;
   const shouldShowMediaSection = hasCombinedMedia;
 
@@ -97,6 +107,8 @@ export const useCardContent = ({
     hasProducts,
     hasMedia,
     hasCombinedMedia,
+    hasEvents,
+    hasPortfolioContent,
     hasBoutiqueContent,
     shouldShowSlider,
     hasLiensContent,

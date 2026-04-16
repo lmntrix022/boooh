@@ -163,7 +163,9 @@ export const EventPhotoGallery: React.FC<EventPhotoGalleryProps> = ({
       {/* Lightbox Modal */}
       <Dialog open={selectedIndex !== null} onOpenChange={closeLightbox}>
         <DialogContent
-          className={`max-w-7xl p-0 ${isFullscreen ? 'w-screen h-screen max-w-none' : ''}`}
+          className={`w-[calc(100vw-1rem)] max-w-5xl p-0 overflow-hidden border-none bg-transparent shadow-none sm:w-[calc(100vw-2rem)] ${
+            isFullscreen ? 'w-screen h-screen max-w-none rounded-none' : 'max-h-[calc(100vh-1rem)] rounded-xl sm:max-h-[calc(100vh-2rem)]'
+          }`}
         >
           <AnimatePresence mode="wait">
             {selectedIndex !== null && (
@@ -173,10 +175,16 @@ export const EventPhotoGallery: React.FC<EventPhotoGalleryProps> = ({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="relative"
+                className="relative overflow-hidden"
               >
                 {/* Image */}
-                <div className={`relative ${isFullscreen ? 'h-screen' : 'h-[80vh]'} bg-black/90 flex items-center justify-center`}>
+                <div
+                  className={`relative bg-black/95 flex items-center justify-center ${
+                    isFullscreen
+                      ? 'h-screen'
+                      : 'h-[min(70vh,32rem)] sm:h-[min(78vh,44rem)]'
+                  }`}
+                >
                   <img
                     src={allImages[selectedIndex]}
                     alt={`${eventTitle} - Image ${selectedIndex + 1}`}
@@ -189,7 +197,7 @@ export const EventPhotoGallery: React.FC<EventPhotoGalleryProps> = ({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/50 hover:bg-black/70 text-white sm:left-4 sm:h-12 sm:w-12"
                         onClick={(e) => {
                           e.stopPropagation();
                           goToPrevious();
@@ -200,7 +208,7 @@ export const EventPhotoGallery: React.FC<EventPhotoGalleryProps> = ({
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute right-4 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-black/50 hover:bg-black/70 text-white sm:right-4 sm:h-12 sm:w-12"
                         onClick={(e) => {
                           e.stopPropagation();
                           goToNext();
@@ -212,11 +220,11 @@ export const EventPhotoGallery: React.FC<EventPhotoGalleryProps> = ({
                   )}
 
                   {/* Top Controls */}
-                  <div className="absolute top-4 right-4 flex gap-2">
+                  <div className="absolute top-2 right-2 flex gap-2 sm:top-4 sm:right-4">
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-10 w-10 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                      className="h-9 w-9 rounded-full bg-black/50 hover:bg-black/70 text-white sm:h-10 sm:w-10"
                       onClick={() => setIsFullscreen(!isFullscreen)}
                     >
                       <Maximize2 className="h-5 w-5" />
@@ -224,7 +232,7 @@ export const EventPhotoGallery: React.FC<EventPhotoGalleryProps> = ({
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-10 w-10 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                      className="h-9 w-9 rounded-full bg-black/50 hover:bg-black/70 text-white sm:h-10 sm:w-10"
                       onClick={() => handleDownload(allImages[selectedIndex])}
                     >
                       <Download className="h-5 w-5" />
@@ -232,7 +240,7 @@ export const EventPhotoGallery: React.FC<EventPhotoGalleryProps> = ({
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-10 w-10 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                      className="h-9 w-9 rounded-full bg-black/50 hover:bg-black/70 text-white sm:h-10 sm:w-10"
                       onClick={closeLightbox}
                     >
                       <X className="h-5 w-5" />
@@ -240,20 +248,20 @@ export const EventPhotoGallery: React.FC<EventPhotoGalleryProps> = ({
                   </div>
 
                   {/* Image Counter */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-black/50 text-white text-sm">
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-black/50 text-white text-xs sm:bottom-4 sm:px-4 sm:py-2 sm:text-sm">
                     {selectedIndex + 1} / {allImages.length}
                   </div>
                 </div>
 
                 {/* Thumbnail Strip */}
                 {allImages.length > 1 && !isFullscreen && (
-                  <div className="p-4 bg-white">
-                    <div className="flex gap-2 overflow-x-auto">
+                  <div className="bg-white p-3 sm:p-4">
+                    <div className="flex gap-2 overflow-x-auto pb-1">
                       {allImages.map((image, index) => (
                         <button
                           key={index}
                           onClick={() => setSelectedIndex(index)}
-                          className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                          className={`flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all sm:w-20 sm:h-20 ${
                             index === selectedIndex
                               ? 'border-purple-500 ring-2 ring-purple-200'
                               : 'border-gray-300 hover:border-gray-400'

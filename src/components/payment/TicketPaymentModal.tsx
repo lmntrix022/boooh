@@ -10,6 +10,8 @@ import { useToast } from '@/hooks/use-toast';
 
 interface TicketPaymentModalProps {
   totalAmount: number; // Prix en FCFA
+  baseAmount: number;
+  transferFee: number;
   quantity: number;
   ticketName: string;
   customerInfo: {
@@ -24,6 +26,8 @@ interface TicketPaymentModalProps {
 
 const TicketPaymentModal: React.FC<TicketPaymentModalProps> = ({
   totalAmount,
+  baseAmount,
+  transferFee,
   quantity,
   ticketName,
   customerInfo,
@@ -165,6 +169,14 @@ const TicketPaymentModal: React.FC<TicketPaymentModalProps> = ({
             <div className="flex justify-between items-center text-sm py-2 border-b border-gray-100">
               <span className="text-gray-500 font-light">Email</span>
               <span className="font-light text-gray-900 text-xs">{customerInfo.email}</span>
+            </div>
+            <div className="flex justify-between items-center text-sm py-2 border-b border-gray-100">
+              <span className="text-gray-500 font-light">Billets</span>
+              <span className="font-medium text-gray-900">{baseAmount.toLocaleString('fr-FR')} FCFA</span>
+            </div>
+            <div className="flex justify-between items-center text-sm py-2 border-b border-gray-100">
+              <span className="text-gray-500 font-light">Frais de transfert (5%)</span>
+              <span className="font-medium text-gray-900">{transferFee.toLocaleString('fr-FR')} FCFA</span>
             </div>
             <div className="pt-3 flex justify-between items-center">
               <span 

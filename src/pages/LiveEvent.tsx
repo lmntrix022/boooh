@@ -81,12 +81,16 @@ export default function LiveEvent() {
 
   const isOrganizer = user?.id === event?.user_id;
 
+  const userId = user?.id;
+  const userFullName = user?.user_metadata?.full_name;
+  const userEmail = user?.email;
+
   // Join as viewer when page loads
   useEffect(() => {
     if (!event?.id || !event?.has_live_stream) return;
 
-    const viewerName = user?.user_metadata?.full_name || user?.email || 'Anonymous';
-    joinAsViewer(event.id, sessionId, viewerName, user?.id);
+    const viewerName = userFullName || userEmail || 'Anonymous';
+    joinAsViewer(event.id, sessionId, viewerName, userId);
 
     const heartbeatInterval = setInterval(() => {
       updateViewerHeartbeat(event.id, sessionId);
@@ -96,7 +100,7 @@ export default function LiveEvent() {
       clearInterval(heartbeatInterval);
       leaveStream(event.id, sessionId);
     };
-  }, [event?.id, event?.has_live_stream, sessionId, user]);
+  }, [event?.id, event?.has_live_stream, sessionId, userId, userFullName, userEmail]);
 
   // Update viewer count
   useEffect(() => {

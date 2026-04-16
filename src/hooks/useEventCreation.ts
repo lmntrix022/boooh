@@ -138,12 +138,20 @@ export function useEventCreation(options: UseEventCreationOptions) {
       throw new Error('End date must be after start date');
     }
 
-    // Validate physical event has location
+    const hasCoordinates =
+      typeof formData.latitude === 'number' &&
+      !Number.isNaN(formData.latitude) &&
+      typeof formData.longitude === 'number' &&
+      !Number.isNaN(formData.longitude);
+    const hasAddress = Boolean(formData.location_address?.trim());
+
+    // Validate physical event has a usable location
     if (
       (formData.event_type === 'physical' || formData.event_type === 'hybrid') &&
-      !formData.location_address
+      !hasAddress &&
+      !hasCoordinates
     ) {
-      throw new Error('Physical events require a location address');
+      throw new Error('Physical events require an address or map coordinates');
     }
 
     // Validate paid event has ticket config

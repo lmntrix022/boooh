@@ -37,6 +37,19 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { SpeakersManager, Speaker } from './SpeakersManager';
 import { AgendaManager, AgendaItem } from './AgendaManager';
 import { FAQManager, FAQItem } from './FAQManager';
+import { useToast } from '@/hooks/use-toast';
+
+const emptyNumberToUndefined = (value: unknown) => {
+  if (value === '' || value === null || value === undefined) {
+    return undefined;
+  }
+
+  if (typeof value === 'number' && Number.isNaN(value)) {
+    return undefined;
+  }
+
+  return value;
+};
 
 // Schema hook
 const useEventFormSchema = () => {
@@ -75,11 +88,12 @@ const useEventFormSchema = () => {
     timezone: z.string().default('UTC'),
     location_name: z.string().optional(),
     location_address: z.string().optional(),
-    latitude: z.number().optional(),
-    longitude: z.number().optional(),
-    max_capacity: z.number()
-      .positive(t('events.validation.capacityPositive'))
-      .optional(),
+    latitude: z.preprocess(emptyNumberToUndefined, z.number().optional()),
+    longitude: z.preprocess(emptyNumberToUndefined, z.number().optional()),
+    max_capacity: z.preprocess(
+      emptyNumberToUndefined,
+      z.number().positive(t('events.validation.capacityPositive')).optional()
+    ),
     allow_waitlist: z.boolean().default(false),
     cover_image_url: z.string().url(t('events.validation.urlInvalid')).optional().or(z.literal('')),
     promo_video_url: z.string().url(t('events.validation.urlInvalid')).optional().or(z.literal('')),
@@ -102,9 +116,21 @@ const useEventFormSchema = () => {
     message: t('events.validation.endDateAfterStart'),
     path: ['end_date'],
   }).refine((data) => {
-    if ((data.event_type === 'physical' || data.event_type === 'hybrid') && !data.location_address) {
+    if (data.event_type !== 'physical' && data.event_type !== 'hybrid') {
+      return true;
+    }
+
+    const hasAddress = Boolean(data.location_address?.trim());
+    const hasCoordinates =
+      typeof data.latitude === 'number' &&
+      !Number.isNaN(data.latitude) &&
+      typeof data.longitude === 'number' &&
+      !Number.isNaN(data.longitude);
+
+    if (!hasAddress && !hasCoordinates) {
       return false;
     }
+
     return true;
   }, {
     message: t('events.validation.locationRequired'),
@@ -132,6 +158,7 @@ export const EventFormStepper: React.FC<EventFormStepperProps> = ({
   const { user } = useAuth();
   const { cards } = useUserCards();
   const { t } = useLanguage();
+  const { toast } = useToast();
   const eventFormSchema = useEventFormSchema();
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -630,7 +657,44 @@ export const EventFormStepper: React.FC<EventFormStepperProps> = ({
           />
         </motion.div>
       ) : (
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+        <form
+          onSubmit={form.handleSubmit(handleSubmit, (errors) => {
+            const invalidFields = Object.keys(errors);
+            const fieldLabels: Partial<Record<keyof EventFormData, string>> = {
+              title: 'titre',
+              description: 'description',
+              category: 'categorie',
+              start_date: 'date de debut',
+              end_date: 'date de fin',
+              timezone: 'fuseau horaire',
+              location_name: 'nom du lieu',
+              location_address: 'adresse ou position sur la carte',
+              latitude: 'latitude',
+              longitude: 'longitude',
+              max_capacity: 'capacite maximale',
+              cover_image_url: 'image de couverture',
+              promo_video_url: 'video promotionnelle',
+              is_free: 'type de tarification',
+              is_public: 'visibilite',
+              tags: 'tags',
+              live_stream_url: 'url du live',
+              live_stream_platform: 'plateforme du live',
+            };
+
+            const details = invalidFields.length > 0
+              ? invalidFields
+                  .map((field) => fieldLabels[field as keyof EventFormData] || field)
+                  .join(', ')
+              : 'Verifie les champs requis dans les etapes precedentes.';
+
+            toast({
+              title: 'Formulaire incomplet',
+              description: `Champs a corriger: ${details}`,
+              variant: 'destructive',
+            });
+          })}
+          className="space-y-6"
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}
@@ -938,23 +1002,27 @@ export const EventFormStepper: React.FC<EventFormStepperProps> = ({
                     {currentStepData.id === 'location' && (
                       <div className="space-y-4">
                         <LocationPicker
-                          onLocationSelect={(location) => {
-                            form.setValue('location_address', location.address);
-                            form.setValue('latitude', location.lat);
-                            form.setValue('longitude', location.lng);
-                            if (location.name) {
-                              form.setValue('location_name', location.name);
+                          initialLocation={
+                            form.getValues('latitude') != null &&
+                            form.getValues('longitude') != null
+                              ? {
+                                  latitude: form.getValues('latitude')!,
+                                  longitude: form.getValues('longitude')!,
+                                }
+                              : null
+                          }
+                          onLocationChange={(location) => {
+                            if (location) {
+                              form.setValue('latitude', location.latitude);
+                              form.setValue('longitude', location.longitude);
+                            } else {
+                              form.setValue('latitude', undefined as unknown as number);
+                              form.setValue('longitude', undefined as unknown as number);
                             }
                           }}
-                          initialAddress={form.getValues('location_address')}
-                          initialLocation={
-                            form.getValues('latitude') && form.getValues('longitude')
-                              ? {
-                                lat: form.getValues('latitude')!,
-                                lng: form.getValues('longitude')!,
-                              }
-                              : undefined
-                          }
+                          onAddressChange={(address) => {
+                            form.setValue('location_address', address);
+                          }}
                         />
 
                         <div className="space-y-2">

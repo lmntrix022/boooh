@@ -225,3 +225,32 @@ export async function permanentDeleteEvent(eventId: string): Promise<void> {
     throw new Error('Failed to permanently delete event');
   }
 }
+
+/**
+ * Toggle event status between draft and published
+ */
+export async function toggleEventStatus(
+  eventId: string,
+  currentStatus: string
+): Promise<Event> {
+  try {
+    const newStatus = currentStatus === 'draft' ? 'published' : 'draft';
+    const publishedAt = newStatus === 'published' ? new Date().toISOString() : null;
+
+    const { data, error } = await supabase
+      .from('events')
+      .update({
+        status: newStatus,
+        published_at: publishedAt,
+      })
+      .eq('id', eventId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('Error toggling event status:', error);
+    throw new Error('Failed to update event status');
+  }
+}

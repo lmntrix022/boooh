@@ -25,6 +25,8 @@ interface TicketingWidgetProps {
 
 type PurchaseStep = 'select' | 'details' | 'review' | 'payment' | 'processing' | 'success';
 
+const TRANSFER_FEE_RATE = 0.05;
+
 export const TicketingWidget: React.FC<TicketingWidgetProps> = ({
   event,
   onPurchaseComplete,
@@ -130,6 +132,15 @@ export const TicketingWidget: React.FC<TicketingWidgetProps> = ({
   const getTotalPrice = () => {
     if (!selectedTier) return 0;
     return selectedTier.price * quantity;
+  };
+
+  const getTransferFee = () => {
+    const basePrice = getTotalPrice();
+    return Math.round(basePrice * TRANSFER_FEE_RATE);
+  };
+
+  const getTotalWithFees = () => {
+    return getTotalPrice() + getTransferFee();
   };
 
   const getAvailableQuantity = (tier: TicketTier) => {
@@ -447,6 +458,29 @@ export const TicketingWidget: React.FC<TicketingWidgetProps> = ({
                         fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
                         fontWeight: 300,
                       }}
+                    >Billets</span>
+                    <span className="text-base font-light text-gray-900">
+                      {getTotalPrice().toFixed(0)} FCFA
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-sm text-gray-500 font-light"
+                      style={{
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+                        fontWeight: 300,
+                      }}
+                    >Frais de transfert (5%)</span>
+                    <span className="text-base font-light text-gray-900">
+                      {getTransferFee().toFixed(0)} FCFA
+                    </span>
+                  </div>
+                  <Separator className="my-3" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-500 font-light"
+                      style={{
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+                        fontWeight: 300,
+                      }}
                     >{t('events.ticketing.total')}</span>
                     <span className="text-xl font-light text-gray-900 tracking-tight"
                       style={{
@@ -455,7 +489,7 @@ export const TicketingWidget: React.FC<TicketingWidgetProps> = ({
                         letterSpacing: '-0.02em',
                       }}
                     >
-                      {(selectedTier.price * quantity).toFixed(0)} FCFA
+                      {getTotalWithFees().toFixed(0)} FCFA
                     </span>
                   </div>
                 </div>
@@ -735,6 +769,39 @@ export const TicketingWidget: React.FC<TicketingWidgetProps> = ({
                     >{attendeeInfo.email}</span>
                   </div>
                   <Separator />
+                  {!event.is_free && (
+                    <>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-500 font-light"
+                          style={{
+                            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+                            fontWeight: 300,
+                          }}
+                        >Billets</span>
+                        <span className="font-light text-gray-900"
+                          style={{
+                            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+                            fontWeight: 300,
+                          }}
+                        >{getTotalPrice().toFixed(0)} FCFA</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-500 font-light"
+                          style={{
+                            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+                            fontWeight: 300,
+                          }}
+                        >Frais de transfert (5%)</span>
+                        <span className="font-light text-gray-900"
+                          style={{
+                            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+                            fontWeight: 300,
+                          }}
+                        >{getTransferFee().toFixed(0)} FCFA</span>
+                      </div>
+                      <Separator />
+                    </>
+                  )}
                   <div className="flex justify-between">
                     <span className="text-lg font-light text-gray-900"
                       style={{
@@ -757,7 +824,7 @@ export const TicketingWidget: React.FC<TicketingWidgetProps> = ({
                           }}
                         >{t('events.filters.free')}</Badge>
                       ) : (
-                        `${getTotalPrice().toFixed(0)} FCFA`
+                        `${getTotalWithFees().toFixed(0)} FCFA`
                       )}
                     </span>
                   </div>
@@ -815,7 +882,9 @@ export const TicketingWidget: React.FC<TicketingWidgetProps> = ({
               transition={{ duration: 0.3 }}
             >
               <TicketPaymentModal
-                totalAmount={selectedTier.price * quantity}
+                totalAmount={getTotalWithFees()}
+                baseAmount={getTotalPrice()}
+                transferFee={getTransferFee()}
                 quantity={quantity}
                 ticketName={selectedTier.name}
                 customerInfo={{
@@ -836,7 +905,7 @@ export const TicketingWidget: React.FC<TicketingWidgetProps> = ({
                   };
 
                   try {
-                    await purchasePaid(purchaseData, selectedTier.price * quantity, selectedTier.currency);
+                    await purchasePaid(purchaseData, getTotalWithFees(), selectedTier.currency);
                   } catch (error) {
                     console.error('Ticket purchase error:', error);
                     setCurrentStep('payment');

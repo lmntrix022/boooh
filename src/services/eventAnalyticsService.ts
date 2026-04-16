@@ -598,3 +598,110 @@ export async function getPerformanceReport(eventId: string) {
     return null;
   }
 }
+
+// =====================================================
+// DASHBOARD ANALYTICS (Migrated from eventService.ts)
+// =====================================================
+
+export interface EventAnalyticsData {
+  id: string;
+  event_id: string;
+  date: string;
+  page_views: number;
+  unique_visitors: number;
+  shares: number;
+  favorites: number;
+  tickets_sold: number;
+  tickets_validated: number;
+  revenue: number;
+  currency: string;
+  traffic_sources: Record<string, number>;
+  conversion_rate: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AnalyticsSummary {
+  totalViews: number;
+  totalUniqueVisitors: number;
+  totalTicketsSold: number;
+  totalRevenue: number;
+  avgConversionRate: number;
+  topTrafficSources: Array<{ source: string; visits: number; percentage: number }>;
+  dailyData: EventAnalyticsData[];
+}
+
+export async function getEventAnalyticsDashboard(
+  eventId: string,
+  startDate?: string,
+  endDate?: string
+): Promise<AnalyticsSummary> {
+  try {
+    let query = supabase
+      .from('event_analytics')
+      .select('*')
+      .eq('event_id', eventId)
+      .order('date', { ascending: true });
+
+    if (startDate) query = query.gte('date', startDate);
+    if (endDate) query = query.lte('date', endDate);
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    const analytics = data as EventAnalyticsData[];
+
+    const totalViews = analytics.reduce((sum, day) => sum + day.page_views, 0);
+    const totalUniqueVisitors = analytics.reduce((sum, day) => sum + day.unique_visitors, 0);
+    const totalTicketsSold = analytics.reduce((sum, day) => sum + day.tickets_sold, 0);
+    const totalRevenue = analytics.reduce((sum, day) => sum + day.revenue, 0);
+
+    const conversionRates = analytics.filter(day => day.conversion_rate !== null).map(day => day.conversion_rate as number);
+    const avgConversionRate = conversionRates.length > 0 ? conversionRates.reduce((sum, rate) => sum + rate, 0) / conversionRates.length : 0;
+
+    const trafficSourcesMap: Record<string, number> = {};
+    analytics.forEach(day => {
+      if (day.traffic_sources) {
+        Object.entries(day.traffic_sources).forEach(([source, visits]) => {
+          trafficSourcesMap[source] = (trafficSourcesMap[source] || 0) + visits;
+        });
+      }
+    });
+
+    const totalTrafficVisits = Object.values(trafficSourcesMap).reduce((sum, visits) => sum + visits, 0);
+    const topTrafficSources = Object.entries(trafficSourcesMap)
+      .map(([source, visits]) => ({ source, visits, percentage: totalTrafficVisits > 0 ? Math.round((visits / totalTrafficVisits) * 100) : 0 }))
+      .sort((a, b) => b.visits - a.visits);
+
+    return { totalViews, totalUniqueVisitors, totalTicketsSold, totalRevenue, avgConversionRate, topTrafficSources, dailyData: analytics };
+  } catch (error) {
+    console.error('Error fetching dashboard analytics:', error);
+    throw new Error('Failed to fetch dashboard analytics');
+  }
+}
+
+export function downloadAnalyticsCSV(analytics: AnalyticsSummary, eventTitle: string): void {
+  const headers = ['Date', 'Page Views', 'Unique Visitors', 'Shares', 'Favorites', 'Tickets Sold', 'Tickets Validated', 'Revenue', 'Conversion Rate (%)'];
+  const rows = analytics.dailyData.map((day) => [
+    day.date,
+    day.page_views.toString(),
+    day.unique_visitors.toString(),
+    day.shares.toString(),
+    day.favorites.toString(),
+    day.tickets_sold.toString(),
+    day.tickets_validated.toString(),
+    `${day.revenue.toFixed(2)} ${day.currency}`,
+    day.conversion_rate ? day.conversion_rate.toFixed(2) : 'N/A',
+  ]);
+  const csvContent = [headers.join(','), ...rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))].join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  link.setAttribute('href', url);
+  link.setAttribute('download', `${eventTitle.replace(/[^a-z0-9]/gi, '_')}_analytics_${new Date().toISOString().split('T')[0]}.csv`);
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
